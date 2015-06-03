@@ -38,7 +38,7 @@ array. This is a pretty good fit and needs no more documentation
 really. So, to encode a list of numbers in an object you might present
 this to `json_encode/2`:
 
-obj([numbers-[10, 20, 999]).
+    obj([numbers-[10, 20, 999]).
 
 
 ## Strings
