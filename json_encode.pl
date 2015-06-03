@@ -157,7 +157,7 @@ json_kv_stringify(K-V, Out) :-
 	flatten(V, Value),
 	flatten([0'", Key, 0'", 0':, Value], Out). %"
 
-json_kv_stringify(K-V, Out) :-
+json_kv_stringify(K-_, _) :-
 	throw(error(json_kv_stringify('K MUST be atom, given: ', K))).
 
 

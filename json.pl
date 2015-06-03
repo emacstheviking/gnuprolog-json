@@ -51,7 +51,7 @@
 %%--------------------------------------------------------------------
 json_find(_, [], undefined) :- !.
 
-json_find(K, [K-V | _], V), !.
+json_find(K, [K-V | _], V) :- !.
 
 json_find(K, [_ | T], V) :-
 	json_find(K, T, V).
