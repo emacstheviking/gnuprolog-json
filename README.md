@@ -92,6 +92,6 @@ conversion as and when required.*
 
 # Feedback
 
-Us and abuse. Again, YMMV, it might contains bugs and aother flaws so
+Use and abuse. Again, YMMV, it might contains bugs and aother flaws so
 if you find anything wrong or want an addition or suggest an
 improvement please get in touch.
