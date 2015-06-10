@@ -22,7 +22,7 @@ and GNU Prolog and JSON present their own special recipe.
 ## Objects
 
 An object in JSON is presented as a bunch of keys and values within
-curly braces, in Prolog I have used a function and a KV list liek so:
+curly braces, in Prolog I have used a function and a KV list like so:
 
     obj([key1-value1, key2-value2, ...]).
 
@@ -92,6 +92,6 @@ conversion as and when required.*
 
 # Feedback
 
-Us and abuse. Again, YMMV, it might contains bugs and aother flaws so
-if you find anything wrong or want an addition or suggest an
+Use and abuse. Again, YMMV, it might contains bugs and other flaws so
+if you find anything wrong or want an addition or to suggest an
 improvement please get in touch.
