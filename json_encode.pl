@@ -176,11 +176,15 @@ json_encode_term(obj(X), Out) :-
 	json_encode(X, Tmp),
 	Out = [0'{, Tmp, 0'}].
 
+
 %% STRING -- str(X)
 %%
 %% Explicit string, wrap in double quotes
 %% TODO: Escape content, caller must ensure this for now.
-json_encode_term(str(T), [34, T, 34]).
+json_encode_term(str(T), String) :-
+	fmap(json_escape_chr, T, Escaped),
+	flatten([34, Escaped, 34], String).
+
 
 %% NUMBER -- as-is
 %%
@@ -188,6 +192,7 @@ json_encode_term(str(T), [34, T, 34]).
 json_encode_term(X, Out) :-
 	number(X),
 	number_codes(X, Out).
+
 
 %% ATOM -- str(X)!
 %%
@@ -200,6 +205,7 @@ json_encode_term(X, Out) :-
 	atom_codes(X, Str),
 	json_encode_term(str(Str), Out).
 
+
 %% LIST -- []!
 %%
 %% A Prolog list is taken to be an actual list of stuff. Strings are
@@ -210,6 +216,25 @@ json_encode_term(X, Out) :-
 	json_encode(X, [], List),
 	Out = [ 0'[, List, 0'] ].
 
+
 %% OOPS! We can't handle it, tell somebody...
 json_encode_term(X, _) :-
 	throw(error(json_encode_term(badtype, X))).
+
+
+%%--------------------------------------------------------------------
+%% json_escape_chr/2
+%%
+%% This is where we map special charcacters into JSON approved escape
+%% sequence. \uNNNN is NOT currently handled.
+%%--------------------------------------------------------------------
+json_escape_chr(34, [0'\\, 0'"]).  %% \"  %editor fix!"
+json_escape_chr(92, [0'\\, 0'\\]). %% \\
+json_escape_chr(34, [0'\\, 0'/]).  %% \/
+json_escape_chr(8,  [0'\\, 0'b]).  %% \b
+json_escape_chr(12, [0'\\, 0'f]).  %% \f
+json_escape_chr(10, [0'\\, 0'n]).  %% \n
+json_escape_chr(13, [0'\\, 0'r]).  %% \r
+json_escape_chr(9 , [0'\\, 0't]).  %% \t
+json_escape_chr(C, C).
+
